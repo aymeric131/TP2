@@ -40,6 +40,11 @@ public class EnsembleChaineTest {
         //Cas 8
         String str8 = "cba";
         assertTrue(!e1.ajouter(str8) && e1.liste.size() == 5 && e1.liste.contains(str1) && e1.liste.contains(str2) && e1.liste.contains(str4) && e1.liste.contains(str5) && e1.liste.contains(str6));
+
+        //Cas 9 Ajout d'une chaine contenant une partie d'une autre chaine
+        String str9 = "abcd";
+        assertTrue(e1.ajouter(str9) && e1.liste.size() == 6 && e1.liste.contains(str1) && e1.liste.contains(str2) && e1.liste.contains(str4) && e1.liste.contains(str5) && e1.liste.contains(str6) && e1.liste.contains(str9));
+
     }
 
     @Test

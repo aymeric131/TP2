@@ -9,8 +9,27 @@ public class EnsembleChaine {
 
     //Ajoute la chaine ch, si elle n’existe pas déjà, à l’ensemble
     public boolean ajouter(String ch) {
-        return false;
+
+        Boolean exist = false;
+        Boolean success = null;
+
+        if (liste.isEmpty()) {
+            liste.add(ch);
+            success = true;
+        } else {
+            if (liste.contains(ch)) {
+                exist = true;
+                success = false;
+            } else {
+                liste.add(ch);
+                success = true;
+            }
+
+        }
+        return success;
     }
+
+
 
     //Test si l’ensemble e est équivalent à l’ensemble courant
     public boolean equals(EnsembleChaine e) {
