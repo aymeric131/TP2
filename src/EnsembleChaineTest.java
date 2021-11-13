@@ -8,7 +8,7 @@ public class EnsembleChaineTest {
     EnsembleChaine e1 = new EnsembleChaine();
 
     @Test
-    // Vrai : element pas présent et ajouté  Faux : element déja present et non ajouté
+    // Vrai : element pas présent et ajouté      Faux : element déja present et non ajouté
     public void ajouterTest() {
         String str1 = "abc";
         assertTrue(e1.ajouter(str1) && e1.liste.size() == 1 && e1.liste.contains(str1));
@@ -49,12 +49,46 @@ public class EnsembleChaineTest {
 
     @Test
     public void testEquals() {
+        EnsembleChaine e2 = new EnsembleChaine();
+        // 1 cas : Si les deux ensembles sont vides.
+
+        assertTrue(e1.equals(e2));
+
+        // 2 cas : Si l'ensemble e2 est NULL.
+        e2 = null;
+        assertFalse(e1.equals(e2));
+
+        // 3 cas : Si l'ensemble e1 est NULL
+
+        e1 = null;
+        assertTrue(e2.equals(e1));
+
+        // 4 cas :
+
+        // 5 cas :
 
     }
 
     @Test
     public void union() {
+        EnsembleChaine ensemble1 = new EnsembleChaine();
+        EnsembleChaine ensemble2 = new EnsembleChaine();
+
+        EnsembleChaine union = ensemble1.union(ensemble2);
+        //Cas 1 les deux ensembles sont vides
+        assertTrue(union.liste.size() == 0);
+
+        //Cas 2 Un ensemble contient un chaine
+        ensemble1.ajouter("abc");
+        EnsembleChaine union2 = ensemble1.union(ensemble2);
+        assertTrue(union2.liste.contains("abc") && union2.liste.size() == 1);
+
+        //Cas 3 Les deux ensemble contiennent une chaine
+        ensemble2.ajouter("123");
+        EnsembleChaine union3 = ensemble1.union(ensemble2);
+        assertTrue(union3.liste.contains("abc") && union3.liste.contains("123") && union3.liste.size() == 2);
     }
+
 
     @Test
     public void intersection() {
