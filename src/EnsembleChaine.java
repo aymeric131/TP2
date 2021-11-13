@@ -52,7 +52,7 @@ public class EnsembleChaine {
     //Renvoie l’union de l’ensemble e et l’ensemble courant
     public EnsembleChaine union(EnsembleChaine e) {
         EnsembleChaine union = new EnsembleChaine();
-        if (!liste.isEmpty() && !e.liste.isEmpty()) {
+        if (!liste.isEmpty() || !e.liste.isEmpty()) {
             for (String str : liste) {
                 union.ajouter(str);
             }
@@ -68,7 +68,7 @@ public class EnsembleChaine {
     //Renvoie l’intersection de l’ensemble e et l’ensemble courant
     public EnsembleChaine intersection(EnsembleChaine e) {
         EnsembleChaine intersection = new EnsembleChaine();
-        if(!liste.isEmpty() && !e.liste.isEmpty()){
+        if(!liste.isEmpty() || !e.liste.isEmpty()){
             for (String str : liste){
                 if (e.liste.contains(str)){
                     intersection.ajouter(str);
