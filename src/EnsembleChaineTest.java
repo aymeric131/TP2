@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 public class EnsembleChaineTest {
 
 
-
     @Test
     // Vrai : element pas présent et ajouté      Faux : element déja present et non ajouté
     public void ajouterTest() {
@@ -98,8 +97,8 @@ public class EnsembleChaineTest {
         EnsembleChaine ensemble1 = new EnsembleChaine();
         EnsembleChaine ensemble2 = new EnsembleChaine();
 
-        EnsembleChaine union = ensemble1.union(ensemble2);
         //Cas 1 les deux ensembles sont vides
+        EnsembleChaine union = ensemble1.union(ensemble2);
         assertTrue(union.liste.size() == 0);
 
         //Cas 2 Un ensemble contient un chaine
@@ -107,15 +106,41 @@ public class EnsembleChaineTest {
         EnsembleChaine union2 = ensemble1.union(ensemble2);
         assertTrue(union2.liste.contains("abc") && union2.liste.size() == 1);
 
-        //Cas 3 Les deux ensemble contiennent une chaine
+        //Cas 3 Les deux ensembles contiennent une chaine
         ensemble2.ajouter("123");
         EnsembleChaine union3 = ensemble1.union(ensemble2);
         assertTrue(union3.liste.contains("abc") && union3.liste.contains("123") && union3.liste.size() == 2);
+
+        //Cas 4 L'ensemble 2 contient aussi abc donc l'union contiendra 1 seul fois abc.
+        ensemble2.ajouter("abc");
+        EnsembleChaine union4 = ensemble1.union(ensemble2);
+        assertTrue(union4.liste.contains("abc") && union4.liste.contains("123") && union4.liste.size() == 2);
+
+        //Cas 5 Les deux ensembles contiennent une chaine = null
+        EnsembleChaine e4 = new EnsembleChaine();
+        EnsembleChaine e3 = new EnsembleChaine();
+        e3.ajouter(null);
+        e4.ajouter(null);
+        EnsembleChaine union5 = e3.union(e4);
+        assertTrue(union5.liste.contains(null) && union5.liste.size() == 1);
+
+        //Cas 6
+        EnsembleChaine e5 = new EnsembleChaine();
+        EnsembleChaine e6 = new EnsembleChaine();
+        e5.ajouter("123");
+        e5.ajouter("abc");
+
+        e6.ajouter("abc");
+        e6.ajouter("321");
+        EnsembleChaine union6 = e5.union(e6);
+        assertTrue(union6.liste.contains("123") && union6.liste.contains("321") && union6.liste.contains("abc") && union6.liste.size() == 3);
+
     }
 
 
     @Test
     public void intersection() {
+
     }
 
     @Test
