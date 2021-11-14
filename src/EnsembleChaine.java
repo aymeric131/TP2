@@ -1,3 +1,9 @@
+/**
+ * BARDU Aymeric L3 MIAGE
+ * ELELOUE Rayan L3 MIAGE
+ * TP Tests Unitaires
+ */
+
 import java.util.ArrayList;
 
 public class EnsembleChaine {

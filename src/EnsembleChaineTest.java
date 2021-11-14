@@ -1,3 +1,9 @@
+/**
+ * BARDU Aymeric L3 MIAGE
+ * ELELOUE Rayan L3 MIAGE
+ * TP Tests Unitaires
+ */
+
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -137,13 +143,90 @@ public class EnsembleChaineTest {
 
     }
 
-
     @Test
     public void intersection() {
+        EnsembleChaine e1 = new EnsembleChaine();
+        EnsembleChaine e2 = new EnsembleChaine();
 
+        //Cas 1 :
+        e1.ajouter("123");
+        e2.ajouter("123");
+        EnsembleChaine commun = e1.intersection(e2);
+        assertTrue( commun.liste.contains("123") && commun.liste.size() == 1);
+
+        // Cas 2 :
+        EnsembleChaine e3 = new EnsembleChaine();
+        EnsembleChaine e4 = new EnsembleChaine();
+        e3.ajouter(null);
+        e4.ajouter(null);
+        EnsembleChaine commun2 = e3.intersection(e4);
+        assertTrue( commun2.liste.contains(null) && commun2.liste.size() == 1);
+
+        //Cas 3 :
+        EnsembleChaine e5 = new EnsembleChaine();
+        EnsembleChaine e6 = new EnsembleChaine();
+        e5.ajouter("123");
+        e6.ajouter("321");
+        EnsembleChaine commun3 = e5.intersection(e6);
+        assertTrue( commun3.liste.size() == 0);
+
+        //Cas 4 :
+        EnsembleChaine e7 = new EnsembleChaine();
+        EnsembleChaine e8 = new EnsembleChaine();
+        e7.ajouter("123");
+        e7.ajouter("321");
+        e8.ajouter("123");
+        e8.ajouter("321");
+        EnsembleChaine commun4 = e7.intersection(e8);
+        assertTrue( commun4.liste.contains("123") && commun4.liste.contains("321") && commun4.liste.size() == 2);
+
+        //Cas 5 :
+        EnsembleChaine e9 = new EnsembleChaine();
+        EnsembleChaine e10 = new EnsembleChaine();
+        e9.ajouter("abc");
+        e10.ajouter("cba");
+        EnsembleChaine commun5 = e9.intersection(e10);
+        assertFalse( commun5.liste.size() == 2);
+
+        //Cas 6 :
+        EnsembleChaine groupe1 = new EnsembleChaine();
+        EnsembleChaine groupe2 = new EnsembleChaine();
+        groupe1.ajouter("Aymeric");
+        groupe1.ajouter("Rayan");
+        groupe2.ajouter("Abare");
+        groupe2.ajouter("Hermanes");
+        groupe2.ajouter("Aymeric");
+
+        EnsembleChaine classe = groupe1.intersection(groupe2);
+        assertTrue( classe.liste.contains("Aymeric") && classe.liste.size() == 1);
     }
 
     @Test
     public void unionDisjointe() {
+        EnsembleChaine e1 = new EnsembleChaine();
+        EnsembleChaine e2 = new EnsembleChaine();
+
+        //Cas 1 : Les deux ensembles sont vides
+        EnsembleChaine unionDis1 =  e1.unionDisjointe(e2);
+        assertTrue(unionDis1.liste.size() == 0);
+
+        //Cas 2 : e1 contient abc et e2 est vide
+        e1.ajouter("abc");
+        EnsembleChaine unionDis2 =  e1.unionDisjointe(e2);
+        assertTrue(unionDis2.liste.contains("abc") && unionDis2.liste.size() == 1);
+
+        //Cas 3: e1 et e2 n'ont aucun cas en commun
+        e2.ajouter("123");
+        EnsembleChaine unionDis3 =  e1.unionDisjointe(e2);
+        assertTrue(unionDis3.liste.contains("abc") && unionDis3.liste.contains("123") && unionDis3.liste.size() == 2);
+
+        //Cas 4 : e1 contient (abc,cde,fgh) , e2 contient (123,abc)
+        e1.ajouter("cde");
+        e1.ajouter("fgh");
+        e2.ajouter("abc");
+        EnsembleChaine unionDis4 =  e1.unionDisjointe(e2);
+        assertTrue(unionDis4.liste.contains("cde") && unionDis4.liste.contains("fgh") && unionDis4.liste.contains("123") && unionDis4.liste.size() == 3);
+
+        //Ajouter cas null
     }
 }
