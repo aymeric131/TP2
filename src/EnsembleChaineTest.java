@@ -5,11 +5,12 @@ import static org.junit.Assert.*;
 
 public class EnsembleChaineTest {
 
-    EnsembleChaine e1 = new EnsembleChaine();
+
 
     @Test
     // Vrai : element pas présent et ajouté      Faux : element déja present et non ajouté
     public void ajouterTest() {
+        EnsembleChaine e1 = new EnsembleChaine();
         String str1 = "abc";
         assertTrue(e1.ajouter(str1) && e1.liste.size() == 1 && e1.liste.contains(str1));
 
@@ -49,23 +50,46 @@ public class EnsembleChaineTest {
 
     @Test
     public void testEquals() {
-        EnsembleChaine e2 = new EnsembleChaine();
-        // 1 cas : Si les deux ensembles sont vides.
 
+        EnsembleChaine e1 = new EnsembleChaine();
+        EnsembleChaine e2 = new EnsembleChaine();
+        EnsembleChaine e2bis = new EnsembleChaine();
+        EnsembleChaine e3 = new EnsembleChaine();
+        EnsembleChaine e4 = new EnsembleChaine();
+        EnsembleChaine e5 = new EnsembleChaine();
+        EnsembleChaine e6 = new EnsembleChaine();
+
+        // 1 cas : Les deux ensembles sont vides Renvoie Vrai
         assertTrue(e1.equals(e2));
 
-        // 2 cas : Si l'ensemble e2 est NULL.
-        e2 = null;
+        // 2 cas : e1 contient une chaine "ABC" et e2 est vide Renvoie Faux
+        e1.ajouter("ABC");
         assertFalse(e1.equals(e2));
 
-        // 3 cas : Si l'ensemble e1 est NULL
-
-        e1 = null;
+        // 3 cas : Les deux ensembles contiennent la chaine "ABC" Renvoie Vrai
+        e2.ajouter("ABC");
         assertTrue(e2.equals(e1));
 
-        // 4 cas :
+        //3 cas bis: Les deux ensembles contiennent ABC. 1 en majuscule et l'autre en minuscule Renvoie Faux
+        e2bis.ajouter("abc");
+        assertFalse(e1.equals(e2bis));
 
-        // 5 cas :
+        // 4 cas : e3 contient une chaine et e4 contient la même chaine à l'envers, les deux ensembles ne sont pas égaux.
+        e3.ajouter("123");
+        e4.ajouter("321");
+        assertFalse(e3.equals(e4));
+
+        // 6 cas : Les deux ensembles contiennent les mêmes chaines dans un ordre différent. Renvoie Vrai
+        e5.ajouter("abc");
+        e5.ajouter("123");
+        e6.ajouter("123");
+        e6.ajouter("abc");
+        assertTrue(e5.equals(e6));
+
+        // 7 cas : Les ensembles e5 et e6 contiennent aussi une chaine null
+        e5.ajouter(null);
+        e6.ajouter(null);
+        assertTrue(e5.equals(e6));
 
     }
 

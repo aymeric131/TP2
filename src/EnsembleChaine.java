@@ -68,9 +68,9 @@ public class EnsembleChaine {
     //Renvoie l’intersection de l’ensemble e et l’ensemble courant
     public EnsembleChaine intersection(EnsembleChaine e) {
         EnsembleChaine intersection = new EnsembleChaine();
-        if(!liste.isEmpty() || !e.liste.isEmpty()){
-            for (String str : liste){
-                if (e.liste.contains(str)){
+        if (!liste.isEmpty() || !e.liste.isEmpty()) {
+            for (String str : liste) {
+                if (e.liste.contains(str)) {
                     intersection.ajouter(str);
                 }
             }
@@ -80,7 +80,20 @@ public class EnsembleChaine {
 
     //Renvoie l’union disjointe de l’ensemble e et l’ensemble courant
     public EnsembleChaine unionDisjointe(EnsembleChaine e) {
-        return null;
+        EnsembleChaine unionDisjointe = new EnsembleChaine();
+        if (!liste.isEmpty() || !e.liste.isEmpty()) {
+            for (String str : liste) {
+                if (!e.liste.contains(str)) {
+                    unionDisjointe.ajouter(str);
+                }
+            }
+            for (String str : e.liste) {
+                if (!liste.contains(str)) {
+                    unionDisjointe.ajouter(str);
+                }
+            }
+        }
+        return unionDisjointe;
     }
 }
 
