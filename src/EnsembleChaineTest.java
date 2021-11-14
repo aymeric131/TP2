@@ -96,6 +96,11 @@ public class EnsembleChaineTest {
         e6.ajouter(null);
         assertTrue(e5.equals(e6));
 
+        //8 cas : Les ensembles contiennent une chaine vide
+        e5.ajouter("");
+        e6.ajouter("");
+        assertTrue(e5.equals(e6));
+
     }
 
     @Test
@@ -141,6 +146,12 @@ public class EnsembleChaineTest {
         EnsembleChaine union6 = e5.union(e6);
         assertTrue(union6.liste.contains("123") && union6.liste.contains("321") && union6.liste.contains("abc") && union6.liste.size() == 3);
 
+
+        //Cas 7 On ajoute une chaine vide à un ensemble
+        e6.ajouter("");
+        EnsembleChaine union7 = e5.union(e6);
+        assertTrue(union7.liste.contains("123") && union7.liste.contains("321") && union7.liste.contains("abc") && union7.liste.contains("") && union7.liste.size() == 4);
+
     }
 
     @Test
@@ -148,13 +159,16 @@ public class EnsembleChaineTest {
         EnsembleChaine e1 = new EnsembleChaine();
         EnsembleChaine e2 = new EnsembleChaine();
 
-        //Cas 1 :
+        //Cas 1 : Les deux ensembles sont vide donc l'intersection est aussi vide
+        assertTrue(e1.intersection(e2).liste.size() == 0);
+
+        //Cas 2 : Les deux ensembles contiennent les mêmes éléments
         e1.ajouter("123");
         e2.ajouter("123");
         EnsembleChaine commun = e1.intersection(e2);
         assertTrue( commun.liste.contains("123") && commun.liste.size() == 1);
 
-        // Cas 2 :
+        // Cas 3 : Les deux ensembles contiennent le même élément null
         EnsembleChaine e3 = new EnsembleChaine();
         EnsembleChaine e4 = new EnsembleChaine();
         e3.ajouter(null);
@@ -162,7 +176,7 @@ public class EnsembleChaineTest {
         EnsembleChaine commun2 = e3.intersection(e4);
         assertTrue( commun2.liste.contains(null) && commun2.liste.size() == 1);
 
-        //Cas 3 :
+        //Cas 4 : Le premier ensemble contient une chaine et l'autre contient la même chaine à l'envers 123 et 321
         EnsembleChaine e5 = new EnsembleChaine();
         EnsembleChaine e6 = new EnsembleChaine();
         e5.ajouter("123");
@@ -170,7 +184,7 @@ public class EnsembleChaineTest {
         EnsembleChaine commun3 = e5.intersection(e6);
         assertTrue( commun3.liste.size() == 0);
 
-        //Cas 4 :
+        //Cas 5 : Les ensembles contiennent les mêmes éléments donc ils apparaissent 1 seul fois dans l'intersection
         EnsembleChaine e7 = new EnsembleChaine();
         EnsembleChaine e8 = new EnsembleChaine();
         e7.ajouter("123");
@@ -180,15 +194,14 @@ public class EnsembleChaineTest {
         EnsembleChaine commun4 = e7.intersection(e8);
         assertTrue( commun4.liste.contains("123") && commun4.liste.contains("321") && commun4.liste.size() == 2);
 
-        //Cas 5 :
         EnsembleChaine e9 = new EnsembleChaine();
         EnsembleChaine e10 = new EnsembleChaine();
         e9.ajouter("abc");
         e10.ajouter("cba");
         EnsembleChaine commun5 = e9.intersection(e10);
-        assertFalse( commun5.liste.size() == 2);
+        assertTrue( commun5.liste.size() == 0);
 
-        //Cas 6 :
+        //Cas 7
         EnsembleChaine groupe1 = new EnsembleChaine();
         EnsembleChaine groupe2 = new EnsembleChaine();
         groupe1.ajouter("Aymeric");
@@ -199,6 +212,8 @@ public class EnsembleChaineTest {
 
         EnsembleChaine classe = groupe1.intersection(groupe2);
         assertTrue( classe.liste.contains("Aymeric") && classe.liste.size() == 1);
+
+
     }
 
     @Test
@@ -227,6 +242,23 @@ public class EnsembleChaineTest {
         EnsembleChaine unionDis4 =  e1.unionDisjointe(e2);
         assertTrue(unionDis4.liste.contains("cde") && unionDis4.liste.contains("fgh") && unionDis4.liste.contains("123") && unionDis4.liste.size() == 3);
 
-        //Ajouter cas null
+        //Cas 5 les des ensembles contiennent un seul élément null
+        EnsembleChaine e3 = new EnsembleChaine();
+        EnsembleChaine e4 = new EnsembleChaine();
+
+        e3.ajouter(null);
+        e4.ajouter(null);
+        EnsembleChaine unionDis5 = e3.unionDisjointe(e4);
+        assertTrue(unionDis5.liste.size() == 0);
+
+        //Cas 6 On ajoute une chaine vide à e4 on verifie que l'union disjointe là contient
+        e3.ajouter("azerty");
+        e3.ajouter("123");
+        e4.ajouter("123");
+        e4.ajouter("");
+        EnsembleChaine unionDis6 =  e3.unionDisjointe(e4);
+        assertTrue(unionDis6.liste.contains("azerty") && unionDis6.liste.contains("") && unionDis6.liste.size() == 2);
+
+
     }
 }
